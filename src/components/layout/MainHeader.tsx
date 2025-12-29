@@ -1,8 +1,7 @@
-'use client';
-
 import React, { useState } from 'react';
-import { Button, Flex, Space, Typography, Grid, Drawer } from 'antd';
+import { Button, Flex, Space, Typography, Grid } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
+import MobileMenu from './MobileMenu';
 
 const { useBreakpoint } = Grid;
 
@@ -24,6 +23,12 @@ const MainHeader: React.FC<MainHeaderProps> = ({ onFAQClick, onContactClick, onS
         closeDrawer();
         if (action) action();
     };
+
+    const menuItems = [
+        { label: 'FAQ', onClick: () => handleMenuClick(onFAQClick) },
+        { label: 'Contact us', onClick: () => handleMenuClick(onContactClick) },
+        { label: 'Start your Project', onClick: () => handleMenuClick(onStartProjectClick), primary: true },
+    ];
 
     return (
         <header style={{ borderBottom: '1px solid #f0f0f0', backgroundColor: '#fff', position: 'sticky', top: 0, zIndex: 1000 }}>
@@ -52,26 +57,12 @@ const MainHeader: React.FC<MainHeaderProps> = ({ onFAQClick, onContactClick, onS
                 </Flex>
             </div>
 
-            {/* MOBILE DRAWER */}
-            <Drawer
-                title="Menu"
-                placement="right"
+            {/* MOBILE MENU OVERLAY */}
+            <MobileMenu
+                isOpen={isDrawerOpen}
                 onClose={closeDrawer}
-                open={isDrawerOpen}
-                styles={{ wrapper: { width: '80%' } }}
-            >
-                <Flex vertical gap="large">
-                    <Button type="text" block style={{ textAlign: 'left', fontSize: '1.1rem' }} onClick={() => handleMenuClick(onFAQClick)}>
-                        FAQ
-                    </Button>
-                    <Button type="text" block style={{ textAlign: 'left', fontSize: '1.1rem' }} onClick={() => handleMenuClick(onContactClick)}>
-                        Contact us
-                    </Button>
-                    <Button type="primary" size="large" block onClick={() => handleMenuClick(onStartProjectClick)}>
-                        Start your Project
-                    </Button>
-                </Flex>
-            </Drawer>
+                menuItems={menuItems}
+            />
         </header>
     );
 };

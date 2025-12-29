@@ -47,7 +47,7 @@ const ProcessSection: React.FC = () => {
                 <Row gutter={[32, 32]}>
                     {steps.map((item, index) => (
                         <Col xs={24} md={6} key={index}>
-                            <Card variant="borderless" style={{ height: '100%', boxShadow: 'none' }}>
+                            <Card variant="borderless" style={{ height: '100%', boxShadow: 'none', textAlign: 'center' }}>
                                 <Text strong style={{ fontSize: '3rem', color: '#e6e6e6', display: 'block', lineHeight: 1, marginBottom: 16 }}>
                                     {item.step}
                                 </Text>

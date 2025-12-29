@@ -1,18 +1,23 @@
 'use client';
 
 import React from 'react';
-import { Row, Col, Typography, Flex } from 'antd'; // 1. Import Flex thay vì Space
+import { Row, Col, Typography, Flex, Grid } from 'antd'; // 1. Import Flex thay vì Space
+
+const { useBreakpoint } = Grid;
 
 const { Text, Link } = Typography;
 
 const MainFooter: React.FC = () => {
+    const screens = useBreakpoint();
+    const isMobile = !screens.md;
+
     return (
         <footer style={{ backgroundColor: '#fff', borderTop: '1px solid #f0f0f0', padding: '60px 24px 24px' }}>
             <div style={{ maxWidth: 1280, margin: '0 auto' }}>
                 <Row gutter={[32, 32]}>
 
                     {/* Cột 1: Thông tin công ty */}
-                    <Col xs={24} md={8}>
+                    <Col xs={24} md={8} style={{ textAlign: isMobile ? 'center' : 'left' }}>
                         <div style={{ marginBottom: 16, fontWeight: 'bold', fontSize: 20 }}>ADDITIV3</div>
                         <Text type="secondary">
                             Bringing your ideas to life with precision 3D manufacturing.
@@ -20,9 +25,9 @@ const MainFooter: React.FC = () => {
                     </Col>
 
                     {/* Cột 2: Links */}
-                    <Col xs={12} md={8}>
+                    <Col xs={12} md={8} style={{ textAlign: isMobile ? 'center' : 'left' }}>
                         {/* 2. Dùng Flex vertical để xếp dọc */}
-                        <Flex vertical gap="middle">
+                        <Flex vertical gap="middle" align={isMobile ? 'center' : 'start'}>
                             <Text strong>Company</Text>
                             <Link href="#" style={{ color: '#595959' }}>About Us</Link>
                             <Link href="#" style={{ color: '#595959' }}>Careers</Link>
@@ -31,9 +36,9 @@ const MainFooter: React.FC = () => {
                     </Col>
 
                     {/* Cột 3: Contact */}
-                    <Col xs={12} md={8}>
+                    <Col xs={12} md={8} style={{ textAlign: isMobile ? 'center' : 'left' }}>
                         {/* 3. Dùng Flex vertical thay cho Space */}
-                        <Flex vertical gap="middle">
+                        <Flex vertical gap="middle" align={isMobile ? 'center' : 'start'}>
                             <Text strong>Support</Text>
                             <Link href="#" style={{ color: '#595959' }}>Help Center</Link>
                             <Link href="#" style={{ color: '#595959' }}>Contact Support</Link>

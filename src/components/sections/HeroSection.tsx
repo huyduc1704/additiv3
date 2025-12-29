@@ -20,17 +20,17 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onStartProjectClick, onViewCa
             <Row gutter={[64, 48]} align="middle">
 
                 {/* TEXT COLUMN */}
-                <Col xs={24} md={12} style={{ textAlign: isMobile ? 'center' : 'left' }}>
+                <Col xs={24} md={12} style={{ textAlign: 'left' }}>
                     <Title level={1} style={{ fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', marginTop: 0, lineHeight: 1.1 }}>
                         Additiv3— Where <br /> Ideas Become <br /> Real Things.
                     </Title>
 
-                    <Paragraph style={{ fontSize: '1.1rem', color: '#595959', marginTop: 24, maxWidth: 480, marginInline: isMobile ? 'auto' : '0' }}>
+                    <Paragraph style={{ fontSize: '1.1rem', color: '#595959', marginTop: 24, maxWidth: 480, marginInline: '0' }}>
                         High quality 3D manufacturing for teams that need functional parts,
                         fast turnaround, and engineering grade materials with consistency they can trust.
                     </Paragraph>
 
-                    <Space size="middle" wrap style={{ marginTop: 24, justifyContent: isMobile ? 'center' : 'start', width: '100%' }}>
+                    <Space size="middle" wrap style={{ marginTop: 24, justifyContent: 'start', width: '100%' }}>
                         <Button type="primary" size="large" onClick={onStartProjectClick}>
                             Start your Project
                         </Button>
