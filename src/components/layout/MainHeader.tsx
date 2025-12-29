@@ -19,7 +19,7 @@ const MainHeader: React.FC<MainHeaderProps> = ({ onFAQClick, onContactClick, onS
                     {/* LOGO */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
                         <div style={{ width: 32, height: 32, backgroundColor: '#d9d9d9' }} /> {/* Logo Placeholder */}
-                        <Typography.Text strong style={{ fontSize: 18 }}>ADDITIV3</Typography.Text>
+                        <Typography.Text strong style={{ fontSize: 'clamp(14px, 4vw, 18px)', whiteSpace: 'nowrap' }}>ADDITIV3</Typography.Text>
                     </div>
 
                     {/* MENU BUTTONS */}

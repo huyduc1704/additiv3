@@ -28,11 +28,14 @@ export default function Home() {
       <MainHeader
         onFAQClick={() => setIsFAQModalOpen(true)}
         onContactClick={() => setIsContactModalOpen(true)}
-        onStartProjectClick={() => setIsContactModalOpen(true)}
+        onStartProjectClick={() => scrollToSection('cta')}
       />
 
       <div id="hero">
-        <HeroSection />
+        <HeroSection
+          onViewCapabilitiesClick={() => scrollToSection('materials')}
+          onStartProjectClick={() => scrollToSection('cta')}
+        />
       </div>
 
       <div id="trust">

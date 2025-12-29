@@ -5,7 +5,12 @@ import { Button, Col, Row, Typography, Space } from 'antd';
 
 const { Title, Paragraph } = Typography;
 
-const HeroSection: React.FC = () => {
+interface HeroSectionProps {
+    onStartProjectClick?: () => void;
+    onViewCapabilitiesClick?: () => void;
+}
+
+const HeroSection: React.FC<HeroSectionProps> = ({ onStartProjectClick, onViewCapabilitiesClick }) => {
     return (
         <section style={{ maxWidth: 1280, margin: '0 auto', padding: '80px 24px' }}>
             <Row gutter={[64, 48]} align="middle">
@@ -22,10 +27,10 @@ const HeroSection: React.FC = () => {
                     </Paragraph>
 
                     <Space size="middle" style={{ marginTop: 24 }}>
-                        <Button type="primary" size="large">
+                        <Button type="primary" size="large" onClick={onStartProjectClick}>
                             Start your Project
                         </Button>
-                        <Button size="large">
+                        <Button size="large" onClick={onViewCapabilitiesClick}>
                             View Capabilities
                         </Button>
                     </Space>
@@ -36,7 +41,7 @@ const HeroSection: React.FC = () => {
                     <div style={{
                         backgroundColor: '#d9d9d9',
                         width: '100%',
-                        aspectRatio: '1/1', // Giữ khung hình vuông
+                        aspectRatio: '1/1',
                         borderRadius: 4,
                         display: 'flex',
                         alignItems: 'center',
