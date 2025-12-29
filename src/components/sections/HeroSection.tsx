@@ -30,7 +30,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onStartProjectClick, onViewCa
                         fast turnaround, and engineering grade materials with consistency they can trust.
                     </Paragraph>
 
-                    <Space size="middle" style={{ marginTop: 24, justifyContent: isMobile ? 'center' : 'start', width: '100%' }}>
+                    <Space size="middle" wrap style={{ marginTop: 24, justifyContent: isMobile ? 'center' : 'start', width: '100%' }}>
                         <Button type="primary" size="large" onClick={onStartProjectClick}>
                             Start your Project
                         </Button>
