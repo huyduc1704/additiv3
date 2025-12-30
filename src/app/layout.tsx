@@ -3,7 +3,7 @@ import { Inter } from "next/font/google"; // Import font Inter
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider } from "antd";
 import theme from "@/theme/themeConfig";
-
+import SmoothScrolling from "@/components/SmoothScrolling";
 import "./globals.css";
 
 // Cấu hình Font
@@ -25,10 +25,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
-      <body style={{ margin: 0, padding: 0 }}>
+      <body>
         <AntdRegistry>
           <ConfigProvider theme={theme}>
-            {children}
+            <SmoothScrolling>
+              {children}
+            </SmoothScrolling>
           </ConfigProvider>
         </AntdRegistry>
       </body>
