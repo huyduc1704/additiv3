@@ -29,7 +29,7 @@ const MaterialsSection: React.FC = () => {
                         <Title level={2} style={{ color: '#000', fontSize: '2.5rem' }}>
                             Materials That Deliver Dependable Results {/*  */}
                         </Title>
-                        <Paragraph style={{ color: '#d9d9d9', fontSize: '1.1rem', marginBottom: 40 }}>
+                        <Paragraph style={{ color: '#8c8c8c', fontSize: '1.1rem', marginBottom: 40 }}>
                             We work with materials chosen for real performance in real applications. {/* [cite: 40] */}
                         </Paragraph>
 

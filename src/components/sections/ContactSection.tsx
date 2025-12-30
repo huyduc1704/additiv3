@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
-import { Button, Form, Input, Typography, Row, Col, message, Modal } from 'antd';
+import { Button, Form, Input, Typography, Row, Col, message } from 'antd';
+import MotionModal from '@/components/common/MotionModal';
 
 const { Title, Paragraph } = Typography;
 const { TextArea } = Input;
@@ -24,13 +25,10 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
     };
 
     return (
-        <Modal
-            open={isOpen}
-            onCancel={onClose}
-            footer={null}
+        <MotionModal
+            isOpen={isOpen}
+            onClose={onClose}
             width={800}
-            centered
-            destroyOnHidden
         >
             {contextHolder}
             <div style={{ padding: '24px 0' }}>
@@ -96,7 +94,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                     </Form.Item>
                 </Form>
             </div>
-        </Modal>
+        </MotionModal>
     );
 };
 

@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
-import { Modal, Collapse, Typography, ConfigProvider } from 'antd';
+import { Collapse, Typography, ConfigProvider } from 'antd';
+import MotionModal from '@/components/common/MotionModal';
 import type { CollapseProps } from 'antd';
 
 const { Title } = Typography;
@@ -46,13 +47,10 @@ interface FAQModalProps {
 
 const FAQModal: React.FC<FAQModalProps> = ({ isOpen, onClose }) => {
     return (
-        <Modal
-            open={isOpen}
-            onCancel={onClose}
-            footer={null}
+        <MotionModal
+            isOpen={isOpen}
+            onClose={onClose}
             width={800}
-            centered
-            destroyOnHidden
         >
             <div style={{ padding: '24px 0' }}>
                 <Title level={2} style={{ textAlign: 'center', marginBottom: 32 }}>
@@ -69,7 +67,7 @@ const FAQModal: React.FC<FAQModalProps> = ({ isOpen, onClose }) => {
                     />
                 </ConfigProvider>
             </div>
-        </Modal>
+        </MotionModal>
     );
 };
 
