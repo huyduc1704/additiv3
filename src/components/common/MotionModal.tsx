@@ -30,7 +30,10 @@ const MotionModal: React.FC<MotionModalProps> = ({ isOpen, onClose, children, wi
                             bottom: 0,
                             backgroundColor: "rgba(0, 0, 0, 0.45)",
                             backdropFilter: "blur(4px)",
+                            WebkitBackdropFilter: "blur(4px)",
                             zIndex: 1000,
+                            willChange: "opacity",
+                            transform: "translateZ(0)", // Force GPU layer
                         }}
                     />
                     {/* Modal Container Wrapper for alignment */}
@@ -70,6 +73,7 @@ const MotionModal: React.FC<MotionModalProps> = ({ isOpen, onClose, children, wi
                                 pointerEvents: "auto",
                                 boxShadow: "0 10px 40px -10px rgba(0,0,0,0.3)",
                                 overflow: "auto",
+                                willChange: "transform, opacity",
                             }}
                         >
                             {/* Close Button (Optional, similar to AntD) */}

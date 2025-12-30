@@ -46,7 +46,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, menuItems }) =
                             height: "100%",
                             backgroundColor: "rgba(255, 255, 255, 0.95)",
                             backdropFilter: "blur(8px)",
+                            WebkitBackdropFilter: "blur(8px)",
                             pointerEvents: "auto",
+                            willChange: "opacity",
+                            transform: "translateZ(0)", // Force GPU layer
                         }}
                     />
 
@@ -70,6 +73,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, menuItems }) =
                             padding: 24,
                             boxSizing: "border-box",
                             pointerEvents: "auto",
+                            willChange: "transform, opacity",
                         }}
                     >
                         {/* Close Button */}
