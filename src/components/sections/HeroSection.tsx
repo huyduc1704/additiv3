@@ -64,13 +64,23 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onStartProjectClick, onViewCa
                 {/* TEXT COLUMN */}
                 <Col xs={24} md={12} style={{ textAlign: 'left' }}>
 
-                    <Title
-                        level={1}
+                    {/* 1. THẺ H1 CHUẨN SEO (Hidden Semantic Heading) */}
+                    <h1 style={{ position: 'absolute', width: 1, height: 1, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap', border: 0 }}>
+                        Additiv3 — Where Ideas Become Real Things.
+                    </h1>
+
+                    {/* 2. VISUAL TITLE (Styled div to avoid duplicate heading ARIA error) */}
+                    <div
                         style={{
                             margin: 0,
                             lineHeight: 1.1,
-                            fontSize: 'clamp(2.5rem, 4vw, 3.5rem)'
+                            fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
+                            fontWeight: 600,
+                            color: '#000000',
+                            fontFamily: 'var(--font-inter)',
+                            marginBottom: 24
                         }}
+                        aria-hidden="true"
                     >
                         <span style={{ fontSize: '1.3em', display: 'block', marginBottom: 8 }}>
                             <span className="anim-chars" style={{ display: 'inline-block' }}>
@@ -85,11 +95,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onStartProjectClick, onViewCa
                                 Where Ideas Become <br /> Real Things.
                             </div>
                         </div>
-                    </Title>
+                    </div>
 
 
                     <div className="hero-content-fade">
-                        <Paragraph style={{ fontSize: '1.1rem', color: '#595959', marginTop: 24, maxWidth: 480, marginInline: '0' }}>
+                        <Paragraph style={{ fontSize: '1.1rem', color: '#4a4a4a', marginTop: 24, maxWidth: 480, marginInline: '0' }}>
                             High quality 3D manufacturing for teams that need functional parts,
                             fast turnaround, and engineering grade materials with consistency they can trust.
                         </Paragraph>
