@@ -28,9 +28,7 @@ const MotionModal: React.FC<MotionModalProps> = ({ isOpen, onClose, children, wi
                             left: 0,
                             right: 0,
                             bottom: 0,
-                            backgroundColor: "rgba(0, 0, 0, 0.45)",
-                            backdropFilter: "blur(4px)",
-                            WebkitBackdropFilter: "blur(4px)",
+                            backgroundColor: "rgba(0, 0, 0, 0.6)",
                             zIndex: 1000,
                             willChange: "opacity",
                             transform: "translateZ(0)", // Force GPU layer
