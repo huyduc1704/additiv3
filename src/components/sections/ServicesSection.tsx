@@ -45,12 +45,11 @@ const ServicesSection: React.FC = () => {
     const sliderContainerRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
-        // --- 1. ANIMATION HEADER (FIX LỖI MOBILE) ---
-        // Đổi sang .fromTo để chắc chắn animation chạy đúng từ A đến B
+        // --- 1. ANIMATION HEADER ---
         gsap.fromTo('.service-header-anim',
             {
-                y: 50,          // Trạng thái bắt đầu
-                opacity: 0      // Ẩn tuyệt đối
+                y: 50,
+                opacity: 0
             },
             {
                 scrollTrigger: {
@@ -58,10 +57,10 @@ const ServicesSection: React.FC = () => {
                     start: 'top 80%',
                     toggleActions: 'play none none reverse',
                 },
-                y: 0,           // Trạng thái kết thúc (về vị trí cũ)
-                opacity: 1,     // Hiện rõ
+                y: 0,
+                opacity: 1,
                 duration: 0.8,
-                stagger: 0.2,   // Title chạy trước, Paragraph chạy sau
+                stagger: 0.2,
                 ease: 'power3.out'
             }
         );
@@ -76,25 +75,46 @@ const ServicesSection: React.FC = () => {
             },
             opacity: 0,
             y: -100,
-            scale: 0.9
+            scale: 0.9,
+            pointerEvents: 'none',
         });
 
-        // --- 3. HORIZONTAL SCROLL CARDS ---
+        // --- 3. ANIMATION SLIDER ---
         const slider = sliderContainerRef.current;
-        if (slider) {
-            const scrollAmount = slider.scrollWidth - window.innerWidth + 48;
+
+        if (slider && headerRef.current) {
+            const getScrollAmount = () => {
+                let sliderWidth = slider.scrollWidth;
+                let viewportWidth = window.innerWidth;
+
+                return -(sliderWidth - viewportWidth);
+            };
             gsap.to(slider, {
-                x: -scrollAmount,
+                y: () => -(headerRef.current!.offsetHeight + 40),
                 ease: "none",
                 scrollTrigger: {
                     trigger: sectionRef.current,
-                    pin: true,
-                    scrub: 1,
                     start: "top top",
-                    end: () => `+=${scrollAmount}`,
+                    end: "+=200",
+                    scrub: true,
+                    invalidateOnRefresh: true,
                 }
-            });
-        }
+            }),
+                gsap.to(slider, {
+                    x: () => getScrollAmount(),
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        pin: true,
+                        scrub: 1,
+                        start: "top top",
+                        end: `+=${Math.abs(getScrollAmount())}`,
+                        invalidateOnRefresh: true,
+                    }
+                })
+        };
+
+
     }, { scope: sectionRef });
 
     return (
@@ -102,14 +122,12 @@ const ServicesSection: React.FC = () => {
 
             {/* CONTAINER HEADER */}
             <div ref={headerRef} style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px', width: '100%', marginBottom: 60 }}>
-                {/* Đã thêm alignItems: 'center' để Paragraph nằm giữa theo trục dọc */}
                 <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 40 }}>
 
                     {/* TITLE */}
-                    {/* Thêm opacity: 0 vào style để ẩn ngay từ đầu (Fix lỗi FOUC) */}
                     <div style={{ flex: '2 1 600px', opacity: 0 }} className="service-header-anim">
                         <Title level={2} style={{
-                            fontSize: 'clamp(2.5rem, 4vw, 4rem)',
+                            fontSize: 'clamp(2rem, 4vw, 4rem)',
                             margin: 0,
                             lineHeight: 1.1,
                             fontWeight: 600,
@@ -139,14 +157,14 @@ const ServicesSection: React.FC = () => {
                 ref={sliderContainerRef}
                 style={{
                     display: 'flex',
-                    gap: 32,
+                    gap: 24,
                     paddingLeft: 'max(24px, (100vw - 1280px) / 2)',
                     paddingRight: 48,
                     width: 'max-content',
                 }}
             >
                 {services.map((item, index) => (
-                    <div key={index} style={{ width: '400px', flexShrink: 0 }}>
+                    <div key={index} style={{ width: 'min(400px, 85vw)', flexShrink: 0 }}>
                         <Card
                             variant="borderless"
                             style={{

@@ -4,12 +4,11 @@ import React, { useRef } from 'react';
 import { Button, Col, Row, Typography, Space, Grid } from 'antd';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { SplitText, ScrollTrigger } from 'gsap/all'; // Nhớ import ScrollTrigger
+import { SplitText, ScrollTrigger } from 'gsap/all';
 
 const { Title, Paragraph } = Typography;
 const { useBreakpoint } = Grid;
 
-// Đăng ký cả 2 plugin
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
 interface HeroSectionProps {
@@ -20,58 +19,55 @@ interface HeroSectionProps {
 const HeroSection: React.FC<HeroSectionProps> = ({ onStartProjectClick, onViewCapabilitiesClick }) => {
     const screens = useBreakpoint();
     const containerRef = useRef<HTMLElement>(null);
-    const contentRef = useRef<HTMLDivElement>(null); // Ref bao quanh nội dung để Fade
+    const contentRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
+        // --- SETUP INTRO (Giữ nguyên logic cũ) ---
         const childSplitChars = new SplitText(".anim-chars", { type: "chars" });
         const childSplitLines = new SplitText(".anim-lines", { type: "lines" });
-
-        // --- 1. INTRO ANIMATION (Chạy 1 lần khi load trang) ---
         const tl = gsap.timeline();
 
-        tl.from(childSplitChars.chars, {
-            x: 100, // Giảm xuống 1 chút cho đỡ giật
-            opacity: 0,
-            duration: 1, // Tăng thời gian lên xíu cho mượt
-            ease: "power4.out",
-            stagger: 0.03
+        tl.from(childSplitChars.chars, { x: 100, opacity: 0, duration: 1, ease: "power4.out", stagger: 0.03 });
+        tl.from(".anim-dash", { opacity: 0, duration: 0.5 }, "-=0.8");
+        tl.from(childSplitLines.lines, { rotationX: -90, opacity: 0, transformOrigin: "50% 50% -50px", duration: 1, ease: "power3.out", stagger: 0.15 }, "-=0.6");
+        tl.from(".hero-content-fade", { y: 30, opacity: 0, duration: 0.8, stagger: 0.1 }, "-=0.8");
+
+
+        // --- 2. SCROLL EXIT ANIMATION (DÙNG MATCH MEDIA) ---
+        let mm = gsap.matchMedia();
+
+        // A. KỊCH BẢN DESKTOP (Màn hình > 768px)
+        mm.add("(min-width: 768px)", () => {
+            gsap.to(contentRef.current, {
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top top", // Bắt đầu ngay khi chạm đỉnh (mượt từ đầu)
+                    end: "bottom center", // Kéo dài hành trình ra cho mượt
+                    scrub: true,
+                },
+                y: -150, // Bay lên cao (Parallax mạnh)
+                opacity: 0,
+                scale: 0.95,
+                filter: "blur(10px)", // Blur mạnh (User desktop thích cái này)
+                ease: "none"
+            });
         });
 
-        tl.from(".anim-dash", {
-            opacity: 0,
-            duration: 0.5
-        }, "-=0.8");
-
-        tl.from(childSplitLines.lines, {
-            rotationX: -90,
-            opacity: 0,
-            transformOrigin: "50% 50% -50px", // Chỉnh lại tâm xoay cho chuẩn 3D
-            duration: 1,
-            ease: "power3.out",
-            stagger: 0.15
-        }, "-=0.6");
-
-        tl.from(".hero-content-fade", {
-            y: 30,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.1
-        }, "-=0.8");
-
-        // --- 2. SCROLL EXIT ANIMATION (Hiệu ứng khi cuộn) ---
-        // Logic: Khi cuộn xuống -> Hero mờ đi & trượt lên. Cuộn lên -> Hiện lại.
-        gsap.to(contentRef.current, {
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top top", // Bắt đầu khi Hero ở đỉnh màn hình
-                end: "bottom center", // Kết thúc khi đáy Hero chạm giữa màn hình
-                scrub: true, // Quan trọng: Animation chạy theo thanh cuộn (Mượt mà)
-            },
-            y: -100, // Trượt lên trên 1 đoạn
-            opacity: 0, // Mờ dần về 0
-            scale: 0.95, // Thu nhỏ nhẹ tạo chiều sâu
-            filter: "blur(10px)", // Làm mờ (blur) kiểu kính mờ rất sang
-            ease: "none"
+        // B.MOBILE (Màn hình <= 767px)
+        mm.add("(max-width: 767px)", () => {
+            gsap.to(contentRef.current, {
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "40% top",
+                    end: "bottom center",
+                    scrub: true,
+                },
+                y: -50,
+                opacity: 0,
+                scale: 0.98,
+                filter: "blur(3px)",
+                ease: "none"
+            });
         });
 
     }, { scope: containerRef });

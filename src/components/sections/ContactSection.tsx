@@ -1,10 +1,11 @@
 'use client';
 import React from 'react';
-import { Button, Form, Input, Typography, Row, Col, message } from 'antd';
+import { Button, Form, Input, Typography, Row, Col, message, Grid } from 'antd';
 import MotionModal from '@/components/common/MotionModal';
 
 const { Title, Paragraph } = Typography;
 const { TextArea } = Input;
+const { useBreakpoint } = Grid;
 
 interface ContactModalProps {
     isOpen: boolean;
@@ -14,6 +15,10 @@ interface ContactModalProps {
 const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
     const [form] = Form.useForm();
     const [messageApi, contextHolder] = message.useMessage();
+
+    // Vẫn dùng hook này để tối ưu nội dung bên trong (font chữ, padding...)
+    const screens = useBreakpoint();
+    const isMobile = !screens.md;
 
     const onFinish = (values: any) => {
         console.log('Success:', values);
@@ -28,14 +33,21 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
         <MotionModal
             isOpen={isOpen}
             onClose={onClose}
+            // SỬA LẠI: Đặt cố định 800 giống FAQModal. 
+            // Ant Design sẽ tự động thêm max-width trên mobile nên không lo bị tràn.
             width={800}
         >
             {contextHolder}
-            <div style={{ padding: '24px 0' }}>
-                <div style={{ textAlign: 'center', marginBottom: 32 }}>
-                    <Title level={2} style={{ fontSize: '2rem' }}>Contact Us</Title>
-                    <Paragraph style={{ fontSize: '1rem', color: '#595959' }}>
-                        Have a project in mind? Fill out the form below and we'll get in touch.
+
+            {/* Vẫn giữ logic giảm padding để nội dung bên trong thoáng hơn trên mobile */}
+            <div style={{ padding: isMobile ? '0' : '24px 0' }}>
+
+                <div style={{ textAlign: 'center', marginBottom: isMobile ? 20 : 32 }}>
+                    <Title level={2} style={{ fontSize: isMobile ? '1.5rem' : '2rem', margin: 0 }}>
+                        Contact Us
+                    </Title>
+                    <Paragraph style={{ fontSize: isMobile ? '0.9rem' : '1rem', color: '#595959', marginBottom: 0 }}>
+                        Have a project in mind? Fill out the form below.
                     </Paragraph>
                 </div>
 
@@ -53,6 +65,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                                 name="name"
                                 label="Name"
                                 rules={[{ required: true, message: 'Please input your name!' }]}
+                                style={{ marginBottom: 20 }}
                             >
                                 <Input placeholder="Your Name" />
                             </Form.Item>
@@ -65,6 +78,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                                     { required: true, message: 'Please input your email!' },
                                     { type: 'email', message: 'Please enter a valid email!' }
                                 ]}
+                                style={{ marginBottom: 20 }}
                             >
                                 <Input placeholder="your@email.com" />
                             </Form.Item>
@@ -75,6 +89,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                         name="subject"
                         label="Subject"
                         rules={[{ required: true, message: 'Please input the subject!' }]}
+                        style={{ marginBottom: 20 }}
                     >
                         <Input placeholder="Project Inquiry" />
                     </Form.Item>
@@ -83,12 +98,17 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                         name="message"
                         label="Message"
                         rules={[{ required: true, message: 'Please input your message!' }]}
+                        style={{ marginBottom: 0 }}
                     >
-                        <TextArea rows={5} placeholder="Tell us about your project requirements..." />
+                        {/* Vẫn giữ logic giảm số dòng trên mobile để không bị che nút gửi */}
+                        <TextArea
+                            rows={isMobile ? 3 : 5}
+                            placeholder="Tell us about your project..."
+                        />
                     </Form.Item>
 
                     <Form.Item style={{ textAlign: 'center', marginTop: 24, marginBottom: 0 }}>
-                        <Button type="primary" htmlType="submit" size="large" style={{ padding: '0 40px', height: 48 }}>
+                        <Button type="primary" htmlType="submit" size="large" style={{ padding: '0 40px', height: 48, width: isMobile ? '100%' : 'auto' }}>
                             Send Message
                         </Button>
                     </Form.Item>
