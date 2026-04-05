@@ -1,7 +1,13 @@
 'use client';
 
+<<<<<<< HEAD
+import { useRouter } from 'next/navigation';
+import { motion } from 'motion/react';
+import Image from 'next/image';
+=======
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+>>>>>>> 55a4f2a2b8bb01cd21decaa3281b477ec701f515
 
 import React, { useRef } from 'react';
 import { Button, Col, Row, Typography, Space, Grid } from 'antd';
@@ -89,13 +95,58 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onStartProjectClick, onViewSe
                                     View Services
                                 </Button>
                                 <Button type="primary" size="large" onClick={onStartProjectClick} style={{ backgroundColor: '#0013DE', border: 'none', boxShadow: 'none' }}>
+<<<<<<< HEAD
+                                    Get a Quote!
+=======
                                     Start Your Project
+>>>>>>> 55a4f2a2b8bb01cd21decaa3281b477ec701f515
                                 </Button>
                             </Space>
                         </div>
                     </Col>
 
 
+<<<<<<< HEAD
+                    {/* ANIMATED TEXT COLUMN */}
+                    <Col xs={24} md={12} style={{ alignSelf: screens.md ? 'flex-start' : 'auto', paddingTop: screens.md ? '120px' : '0' }}>
+                        <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: !screens.md ? '12px' : '20px' }}>
+                                <motion.div
+                                    initial={{ opacity: 0, x: -14 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.4, duration: 0.2 }}
+                                >
+                                    <Image
+                                        src="/logo/avatarWB.png"
+                                        alt="Additiv3 Logo"
+                                        width={80}
+                                        height={80}
+                                        style={{ width: !screens.md ? '48px' : 'clamp(56px, 5vw, 80px)', height: 'auto' }}
+                                    />
+                                </motion.div>
+
+                                <div style={{
+                                    display: 'flex',
+                                    flexWrap: 'wrap',
+                                    fontSize: !screens.md ? '2.5rem' : 'clamp(3rem, 5vw, 5rem)',
+                                    fontWeight: 800,
+                                    lineHeight: 1.1,
+                                    color: '#111',
+                                    fontFamily: 'var(--font-inter)',
+                                }}>
+                                    {'Additiv3'.split('').map((char, i) => (
+                                        <motion.span
+                                            key={i}
+                                            initial={{ opacity: 0, x: -14 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: 0.4 + i * 0.08, duration: 0.13 }}
+                                        >
+                                            {char}
+                                        </motion.span>
+                                    ))}
+                                </div>
+                            </div>
+=======
                     {/* IMAGE COLUMN */}
                     <Col xs={24} md={12}>
                         <div className="hero-content-fade" style={{
@@ -116,6 +167,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onStartProjectClick, onViewSe
                                     objectFit: 'cover'
                                 }}
                             />
+>>>>>>> 55a4f2a2b8bb01cd21decaa3281b477ec701f515
                         </div>
                     </Col>
 
